@@ -2,6 +2,8 @@
 let humanscore = 0;
 let computerscore = 0; 
 
+let display = document.getElementById("display");
+
 function getcomputerchoice() {
     let randomnumber = Math.floor(Math.random() * 3);
     let choice;
@@ -18,14 +20,15 @@ function getcomputerchoice() {
     return choice;
 }
 
-function gethumanchoice() {
-    let choice = prompt("Enter a choice").toLowerCase();
-    console.log("human: " + choice);
-    return choice;
-}
+// function gethumanchoice() {
+//     let choice = prompt("Enter a choice").toLowerCase();
+//     console.log("human: " + choice);
+//     return choice;
+// }
 
-function playround(humanchoice,computerchoice) {
+function playround(humanchoice) {
     
+    let computerchoice = getcomputerchoice();
     if (humanchoice === computerchoice) {
         console.log("IT is a tie");
     }
@@ -34,24 +37,31 @@ function playround(humanchoice,computerchoice) {
               (humanchoice === "scissors" && computerchoice === "paper")
     ) {
             humanscore++;    
-            console.log("You win");
+            // console.log("You win");
+            document.getElementById("whoWins").textContent = "You win";
+            document.getElementById("runningScore").textContent = humanscore;
     }
     else {
         computerscore++;
-        console.log("you lose");
+        // console.log("you lose");
+        document.getElementById("whoWins").textContent = "You lose";
+        document.getElementById("runningScore").textContent = computerscore;
     }
 
 }
 
-function playgame() {
+function playgame(humanchoice) {
     for (let i = 0; i < 5; i++)
     {
-        let humanchoice = gethumanchoice();
-        let computerchoice = getcomputerchoice();
+        // let humanchoice = gethumanchoice();
+        // let computerchoice = getcomputerchoice();
 
         playround(humanchoice,computerchoice);
         
     }
+
+    let computerchoice = getcomputerchoice();
+    let result = playround(humanchoice,computerchoice)
     
     if (humanscore > computerscore) 
     {
@@ -65,6 +75,13 @@ function playgame() {
     {
         return "draw";
     }
+
+    display.textContent = `You chose ${humanchoice}, computer chose ${computerchoice}.`;
+    document.getElementById("result").textContent = result;
 }
 
-playgame();
+// document.getElementById("rock").addEventListener("onclick", () => playgame(rock));
+// document.getElementById("paper").addEventListener("onclick", () => playgame(paper));
+// document.getElementById("scissors").addEventListener("onclick", () => playgame(scissors));
+
+// playgame();
